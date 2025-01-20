@@ -1,0 +1,150 @@
+import React from 'react';
+import { Home, Search, PlusSquare, Heart, Menu, MessageCircle, Bookmark, MoreHorizontal, Send } from 'lucide-react';
+
+function App() {
+  const stories = [
+    { id: 1, username: 'your_story', image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop', isUser: true },
+    { id: 2, username: 'john_doe', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop' },
+    { id: 3, username: 'jane_smith', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop' },
+    { id: 4, username: 'travel_guy', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop' },
+    { id: 5, username: 'foodie_gal', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop' }
+  ];
+
+  const posts = [
+    {
+      id: 1,
+      username: 'john_doe',
+      userImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop',
+      image: 'https://images.unsplash.com/photo-1693949344543-f95d73e13ef0?w=600&h=600&fit=crop',
+      likes: 1234,
+      caption: 'Beautiful sunset at the beach! 🌅 #sunset #beach #vibes',
+      comments: 42,
+      timeAgo: '2 HOURS AGO'
+    },
+    {
+      id: 2,
+      username: 'travel_guy',
+      userImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop',
+      image: 'https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=600&h=600&fit=crop',
+      likes: 856,
+      caption: 'Adventure awaits! 🏔️ #travel #mountains #explore',
+      comments: 23,
+      timeAgo: '5 HOURS AGO'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <nav className="bg-white border-b fixed w-full top-0 z-50">
+        <div className="max-w-5xl mx-auto flex justify-between items-center p-4">
+          <h1 className="text-2xl font-semibold">Instagram</h1>
+          <div className="flex items-center gap-4">
+            <Home className="w-6 h-6 cursor-pointer" />
+            <MessageCircle className="w-6 h-6 cursor-pointer" />
+            <PlusSquare className="w-6 h-6 cursor-pointer" />
+            <Search className="w-6 h-6 cursor-pointer" />
+            <Heart className="w-6 h-6 cursor-pointer" />
+            <img
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=32&h=32&fit=crop"
+              alt="Profile"
+              className="w-6 h-6 rounded-full cursor-pointer"
+            />
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="max-w-5xl mx-auto pt-16">
+        {/* Stories */}
+        <div className="bg-white border rounded-lg mt-8 p-4 overflow-x-auto">
+          <div className="flex gap-4">
+            {stories.map((story) => (
+              <div key={story.id} className="flex flex-col items-center flex-none">
+                <div className={`p-[2px] rounded-full ${story.isUser ? 'bg-gray-300' : 'bg-gradient-to-tr from-yellow-400 to-pink-600'}`}>
+                  <div className="p-[2px] bg-white rounded-full">
+                    <img
+                      src={story.image}
+                      alt={story.username}
+                      className="w-16 h-16 rounded-full"
+                    />
+                  </div>
+                </div>
+                <span className="text-xs mt-1">{story.isUser ? 'Your story' : story.username}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Posts */}
+        <div className="mt-4 space-y-4">
+          {posts.map((post) => (
+            <article key={post.id} className="bg-white border rounded-lg">
+              {/* Post Header */}
+              <div className="flex items-center justify-between p-3">
+                <div className="flex items-center gap-2">
+                  <img
+                    src={post.userImage}
+                    alt={post.username}
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <span className="font-semibold">{post.username}</span>
+                </div>
+                <MoreHorizontal className="w-6 h-6 cursor-pointer" />
+              </div>
+
+              {/* Post Image */}
+              <img
+                src={post.image}
+                alt="Post"
+                className="w-full"
+              />
+
+              {/* Post Actions */}
+              <div className="p-3">
+                <div className="flex justify-between mb-2">
+                  <div className="flex gap-4">
+                    <Heart className="w-6 h-6 cursor-pointer" />
+                    <MessageCircle className="w-6 h-6 cursor-pointer" />
+                    <Send className="w-6 h-6 cursor-pointer" />
+                  </div>
+                  <Bookmark className="w-6 h-6 cursor-pointer" />
+                </div>
+
+                {/* Likes */}
+                <p className="font-semibold">{post.likes.toLocaleString()} likes</p>
+
+                {/* Caption */}
+                <p className="mt-1">
+                  <span className="font-semibold mr-2">{post.username}</span>
+                  {post.caption}
+                </p>
+
+                {/* Comments */}
+                <button className="text-gray-500 mt-1">
+                  View all {post.comments} comments
+                </button>
+
+                {/* Timestamp */}
+                <p className="text-xs text-gray-500 mt-1">{post.timeAgo}</p>
+              </div>
+
+              {/* Comment Input */}
+              <div className="flex items-center border-t p-3">
+                <Menu className="w-6 h-6 mr-2" />
+                <input
+                  type="text"
+                  placeholder="Add a comment..."
+                  className="flex-1 outline-none"
+                />
+                <button className="text-blue-500 font-semibold">Post</button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default App;
